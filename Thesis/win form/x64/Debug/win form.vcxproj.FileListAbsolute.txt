@@ -1,0 +1,4 @@
+C:\Programing\C++ progams\kursova\win form\win form\win form\x64\Debug\win form.vcxprojAssemblyReference.cache
+C:\Programing\C++ progams\kursova\win form\win form\win form\x64\Debug\winform.MyForm1.resources
+C:\Programing\C++ progams\kursova\win form\win form\win form\x64\Debug\win form.vcxproj.GenerateResource.cache
+C:\Programing\C++ progams\kursova\win form\win form\win form\x64\Debug\winform.MyForm2.resources
