@@ -1,7 +1,7 @@
 ﻿  foo.cpp
-C:\Programing\C++ progams\kursova\win form\win form\win form\foo.cpp(3,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
-C:\Programing\C++ progams\kursova\win form\win form\win form\foo.cpp(101,37): warning C4101: sint: неиспользованная локальная переменная
-C:\Programing\C++ progams\kursova\win form\win form\win form\foo.cpp(101,23): warning C4101: sinx1: неиспользованная локальная переменная
-C:\Programing\C++ progams\kursova\win form\win form\win form\foo.cpp(101,30): warning C4101: sinx2: неиспользованная локальная переменная
+C:\Programing\C++ progams\kursova\win form\Thesis\win form\foo.cpp(3,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Programing\C++ progams\kursova\win form\Thesis\win form\foo.cpp(101,37): warning C4101: sint: неиспользованная локальная переменная
+C:\Programing\C++ progams\kursova\win form\Thesis\win form\foo.cpp(101,23): warning C4101: sinx1: неиспользованная локальная переменная
+C:\Programing\C++ progams\kursova\win form\Thesis\win form\foo.cpp(101,30): warning C4101: sinx2: неиспользованная локальная переменная
   foo.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
-  win form.vcxproj -> C:\Programing\C++ progams\kursova\win form\win form\x64\Debug\win form.exe
+  win form.vcxproj -> C:\Programing\C++ progams\kursova\win form\Thesis\x64\Debug\win form.exe

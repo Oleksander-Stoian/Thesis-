@@ -11,45 +11,45 @@ const double c = 10.0, c2 = c * c;
 const double pi = 3.141592653589793,pi2=pi*pi;
 double step1 = 0.0, step2 = 0.0, step3 = 0.0;
 const double X1 = 5.0, X2 = 10.0;
-int N_l, N_m;
+int lin=0,col=0;
 //LISTS
 //	Y
-std::list<double> x1_list_Y;
-std::list<double> x2_list_Y;
-std::list<double> t_list_Y;
-// U
-std::list<double> x1_list_U;
-std::list<double> x2_list_U;
-std::list<double> t_list_U;
+//std::list<double> x1_list_Y;
+//std::list<double> x2_list_Y;
+//std::list<double> t_list_Y;
+//// U
+//std::list<double> x1_list_U;
+//std::list<double> x2_list_U;
+//std::list<double> t_list_U;
 //=====================================
-double** matrixC_copy = new double* [5];
-double** matrixG_copy = new double* [5];
+double** matrix1_res = new double* [15];
+double** matrixG_res = new double* [15];
 void CreateMat_copy()
 {
 
 	int i;
-	for (i = 0; i < 5; ++i)
+	for (i = 0; i < 15; ++i)
 	{
-		matrixC_copy[i] = new double[5];
+		matrix1_res[i] = new double[15];
 	}
-	for (i = 0; i < 5; ++i)
+	for (i = 0; i < 15; ++i)
 	{
-		matrixG_copy[i] = new double[5];
+		matrixG_res[i] = new double[15];
 	}
 }
 
 //=============U and Y=================
 
-double** matrixY = new double* [5];
-double** matrixU = new double* [5];
+double** matrixY = new double* [15];
+double** matrixU = new double* [15];
 
 void CreateMat_y()
 {
 
 	int i;
-	for (i = 0; i < 5; ++i)
+	for (i = 0; i < 15; ++i)
 	{
-		matrixY[i] = new double[5];
+		matrixY[i] = new double[15];
 	}
 	
 }
@@ -57,9 +57,9 @@ void CreateMat_u()
 {
 
 	int i;
-	for (i = 0; i < 5; ++i)
+	for (i = 0; i < 15; ++i)
 	{
-		matrixU[i] = new double[5];
+		matrixU[i] = new double[15];
 	}
 
 }
@@ -133,10 +133,10 @@ double equationsY(double& t, double& x1_sl, double& x2_sl)
 double compare()
 {
 
-	for (int i = 0; i < N_l; i++)
+	/*for (int i = 0; i < N_l; i++)
 		for (int j = 0; j < N_m; j++)
 		{
-			if (matrixC_copy[i][j] == matrixG_copy[i][j])
+			if (matrix1_res[i][j] == matrixG_res[i][j])
 			{
 				
 			}
@@ -145,7 +145,7 @@ double compare()
 				return 1;
 			}
 		}
-	
+	*/
 	return 0;// ğ³âí³
 }
 
@@ -154,9 +154,9 @@ void matrix_G(double *t_sL, double* t_sm, double** matrixG, double* x1_sL, doubl
 	double	r, step4;
 	double r2, H = 0;
 
-	for (int i = 0; i < N_l; i++)
+	for (int i = 0; i < lin; i++)
 	{
-		for (int j = 0; j < N_m; ++j)
+		for (int j = 0; j < col; ++j)
 		{
 			//=======R=======
 			step1 = x1_sL[i] - x1_sm[j];
@@ -202,7 +202,7 @@ void matrix_YU(double arr[], int &i, double** Mat)
 {
 	
 	
-		for (int j = 0; j < N_m; j++)
+		for (int j = 0; j < lin; j++)
 		{
 			Mat[i][j] = arr[i];
 		
@@ -214,9 +214,9 @@ void matrix_YU(double arr[], int &i, double** Mat)
 void matrix_ziro(double** Mat)
 {
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 15; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < 15; j++)
 		{
 			Mat[i][j] = 0;
 
@@ -244,86 +244,25 @@ void matrix_ziro(double** Mat)
 //	}
 //}
 
-void addY(double x1,double x2,double t,int exp)
+void addY(double x1,double x2,double t,int exp,int j1)
 {
-	int i,j;
-	
-	////SL  Y(s)
-	//double* x1_sL = new double[5];//		X1	
-	//double* x2_sL = new double[5];//		X2
-	//double* t_sL = new double[5];//		T
-	double* arrY = new double[5];//		S
 
-	//x1_list_Y.push_back(x1);
-	//x2_list_Y.push_back(x2);
-	// t_list_Y.push_back(t);
-	// 
-	// copy(x1_list_Y.begin(), x1_list_Y.end(), x1_sL);
-	// copy(x2_list_Y.begin(), x2_list_Y.end(), x2_sL);
-	// copy(t_list_Y.begin(), t_list_Y.end(), t_sL);
 
-	 //Vector Y_i
-	// for ( i = 0; i < 5; ++i)
-		 arrY[exp] = equationsY(t, x1, x2);	//Y(sL)
-		 //arrY[i] = equationsY(t_sL[i], x1_sL[i], x2_sL[i]);	//Y(sL)
-	 //matrix_YU(arrY, exp, matrixY);
-	 if (exp == 0)
-	 {
-		 CreateMat_y();
-		 matrix_ziro(matrixY);
-	 }
-
-	 for (j = 0; j < 5; j++)
-	 {
-		 matrixY[exp][j] = arrY[i];
-
-	 }
-
-		 
+		 matrixY[exp][j1] = equationsY(t, x1, x2); 
 
 }
 
 
-void addU(double x1, double x2, double t,int exp)
+void addU(double x1, double x2, double t,int exp, int j2)
 {
-	int i,j;
 	
 
-	//Sm  U(s)
-	double* x1_sm = new double[5];//		X1'	
-	double* x2_sm = new double[5];//		X2'
-	double* t_sm = new double[5];//		T'
-	double* arrU = new double[5];
-
-	x1_list_U.push_back(x1);
-	x2_list_U.push_back(x2);
-	t_list_U.push_back(t);
-
-	copy(x1_list_U.begin(), x1_list_U.end(), x1_sm);
-	copy(x2_list_U.begin(), x2_list_U.end(), x2_sm);
-	copy(t_list_U.begin(), t_list_U.end(), t_sm);
-
-	// vector U_i
-	for (i = 0; i < 5; ++i)
-	{
-		arrU[i] = equationsL(t_sm[i], x1_sm[i], x2_sm[i]);
-	}
-
-	if (exp == 0)
-	{
-		CreateMat_u();
-		matrix_ziro(matrixU);
-	}
-
-	for (j = 0; j < 5; j++)
-	{
-		matrixU[exp][j] = arrU[i];
-
-	}
+	matrixU[exp][j2] = equationsL(t, x1, x2);
 }
 
 void mult(double** x, double n, double m, double** y, double** res)
 {
+	
 	for (int row = 0; row < n; row++) {
 		for (int col = 0; col < n; col++) {
 
@@ -339,26 +278,16 @@ void mult(double** x, double n, double m, double** y, double** res)
 void giveMat(double** matC,double** matG)
 {
 	int i, j;
-	double** res = new double* [5];
-	for (i = 0; i < 5; ++i)
-	{
-		res[i] = new double[5];
-	}
+	mult(matrixY, lin, col, matrixU, matrix1_res);
 
-	double** matrixG = new double* [5];
-	for (i = 0; i < 5; ++i)
+	for ( i = 0; i < lin; i++)
 	{
-		matrixG[i] = new double[5];
-	}
-
-	mult(matrixY, 5, 5, matrixU, res);
-
-	for ( i = 0; i < 5; i++)
-	{
-		for (j = 0; j < 5; j++)
+		for (j = 0; j < col; j++)
 		{
-			matC[i][j] = res[i][j];
-			matG[i][j] = res[i][j];//!!!
+			matC[i][j] = matrix1_res[i][j];
+			matG[i][j] = matrix1_res[i][j];//!!!
+			//matC[i][j] = matrix1_res[i][j];
+			//matG[i][j] = matrixG_res[i][j];//!!!
 		}
 	}
 }
@@ -367,97 +296,28 @@ void giveMat(double** matC,double** matG)
 
 
 //exp - expiriment
-void start(int l,int m,int exp,int num)
+void start(int l,int m,int exp)
 {
-	
-		N_l = l;
-		N_m = m;
+	if(l==m)
+	{
+		lin = l;
+	}
+	else
+	{
+		lin = m;
+	}
+	col = exp;
 		
-		
-		//double* arrY_s = new double[N_m];//		S'
-		//double* arrL = new double[N_m];
-
-		//		
-		//double* arrU_T = new double[N_m];
-		//// U^+
-		//// M-êîëîíêà  L-ñòğîêà
-		//int i, j;
-		//	
-		//
-		//
-		//for ( i = 0; i < 5; i++)
-		//{
-		//	for (j = 0; j < 5; j++)
-		//	{
-		//		res[i][j] = 0;
-		//	}
-		//}
-		//double** matrixG = new double* [5];
-		//for (i = 0; i < 5; ++i)
-		//{
-		//	matrixG[i] = new double[5];
-		//}
-
-		//if (exp == 0)
-		//{
-
-		//	matrix_ziro(matrixY);
-		//	matrix_ziro(matrixU);
-		//	matrix_ziro(matrixG);
-		//}
-
-
-
-		
-		
-
-		//matrix_G(t_sL, t_sm, matrixG, x1_sL, x2_sL, x1_sm, x2_sm);
-		//for (int i = 0, g = N_l - 1; i < N_l; ++i) //???????????????? ÏÎÇÆÅ ÒĞÀÍÑÏÎÍÓÉ ÌÀÒĞÈÖÓ
-		//{
-		//	arrU_T[i] = arrU[g];
-		//	--g;
-		//}
-		
-		
-		//giveMat(matrixC, N_m, N_l);
-
-		
-
-	/*	if (num == 2)
-		{
-			mult(matrixY, 5, 5, matrixU, res);
-			
-			CreateMat();
-			for ( i = 0; i < 5; i++)
-			{
-				for ( j = 0; j < 5; j++)
-				{
-					matrixC_copy[i][j] = matrixG[i][j];
-					matrixG_copy[i][j] = res[i][j];
-				}
-			}
-		}*/
-		
-		/*std::cout << "The array C is" << std::endl;
-		for ( i = 0; i < 15; i++)
-		{
-			for ( j = 0; j < 15; j++)
-			{
-
-				std::cout << res[i][j] << ' ';
-			}
-			std::cout << std::endl;
-		}
-		for (i = 0; i < 15; i++)
-		{
-			for (j = 0; j < 15; j++)
-			{
-
-				std::cout << matrixG[i][j] << ' ';
-			}
-			std::cout << std::endl;
-		}*/
-	
 }
 
+void Create()
+{
+	CreateMat_y();
+	CreateMat_copy();
+	CreateMat_u();
 
+	matrix_ziro(matrixY);
+	matrix_ziro(matrixU);
+	matrix_ziro(matrix1_res);
+	matrix_ziro(matrixG_res);
+}

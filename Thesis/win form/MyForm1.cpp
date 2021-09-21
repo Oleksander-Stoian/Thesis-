@@ -7,7 +7,7 @@
 
 
 int x1_y, x2_y, t_y, x1_u, x2_u, t_u,experiment=0, num=1;
-int N_u = 0, N_y=0;
+int N_u = 0, N_y=0,indexY=0,indexU=0,click=0,n=0,u=0;
 
 
 System::Void winform::MyForm1::textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e)
@@ -28,42 +28,45 @@ System::Void winform::MyForm1::textBox3_TextChanged(System::Object^ sender, Syst
 
 System::Void winform::MyForm1::button2_Click(System::Object^ sender, System::EventArgs^ e) // button  add Y
 {
-    
+        if (click == 0)
+        {
+            Create();
+            ++click;
+        }
         x1_y = Convert::ToInt32(textBox1->Text);
         x2_y = Convert::ToInt32(textBox2->Text);
         t_y = Convert::ToInt32(textBox3->Text);
-        addY(x1_y, x2_y, t_y,experiment);
-        ++N_y;
+        addY(x1_y, x2_y, t_y,experiment,indexY);
+        
+        ++n;
        /* textBox5->Text = x1_y.ToString();
         textBox6->Text = x2_y.ToString();
         textBox4->Text = t_y.ToString();*/
-        label9->Text = N_y.ToString();
+        label9->Text = n.ToString();
         textBox1->Clear();
         textBox2->Clear();
         textBox3->Clear();
+        ++indexY;
 
 }
 
 System::Void winform::MyForm1::button3_Click(System::Object^ sender, System::EventArgs^ e)
 {
-
     
-    MyForm2^ form = gcnew MyForm2();
-    this->Hide();
-    form->Show();
+    start(N_u, N_y,experiment);
 
-    double** matrixC = new double* [5];
+    double** matrixC = new double* [N_u];
     int i;
-    for (i = 0; i < 5; ++i)
+    for (i = 0; i < N_u; ++i)
     {
-        matrixC[i] = new double[5];
+        matrixC[i] = new double[N_y];
     }
 
-    double** matrixG = new double* [5];
+    double** matrixG = new double* [N_u];
  
-    for (i = 0; i < 5; ++i)
+    for (i = 0; i < N_u; ++i)
     {
-        matrixG[i] = new double[5];
+        matrixG[i] = new double[N_y];
     }
     /*for (int i = 0; i < N_u; i++)
     {
@@ -71,8 +74,12 @@ System::Void winform::MyForm1::button3_Click(System::Object^ sender, System::Eve
             matrixC[i][j] = 1;
     }*/
     giveMat(matrixC,matrixG);
-    
-    form->ShowC(5,5, matrixC,matrixG);
+
+
+    MyForm2^ form = gcnew MyForm2();
+    this->Hide();
+    form->Show();
+    form->ShowC(N_u,N_y, matrixC,matrixG);
    
    
 }
@@ -94,18 +101,25 @@ System::Void winform::MyForm1::textBox4_TextChanged(System::Object^ sender, Syst
 
 System::Void winform::MyForm1::button1_Click(System::Object^ sender, System::EventArgs^ e) // button  add U
 {
+    if (click == 0)
+    {
+        Create();
+        ++click;
+    }
     x1_u = Convert::ToInt32(textBox5->Text);
     x2_u = Convert::ToInt32(textBox6->Text);
     t_u = Convert::ToInt32(textBox4->Text);
-    addU(x1_u, x2_u, t_u, experiment);
-    ++N_u;
+    addU(x1_u, x2_u, t_u, experiment, indexU);
+ 
+    ++u;
    /* textBox1->Text = x1_u.ToString();
      textBox2->Text = x2_u.ToString();
      textBox3->Text = t_u.ToString();*/
-    label12->Text = N_u.ToString();
+    label12->Text = u.ToString();
     textBox5->Clear();
     textBox6->Clear();
     textBox4->Clear();
+    ++indexU;
 }
 
 System::Void winform::MyForm1::âèõ³äToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
@@ -172,7 +186,18 @@ System::Void winform::MyForm1::button6_Click(System::Object^ sender, System::Eve
     textBox3->Clear();
     label12->Text = "0";
     label9->Text = "0";
-    N_u = 0, N_y = 0;
+    if (N_y < n)
+    {
+        N_y = n;
+    }
+    if (N_u < u)
+    {
+        N_u = u;
+    }
+    n = 0;
+    u = 0;
+    indexY = 0;
+    indexU = 0;
     
 }
 
