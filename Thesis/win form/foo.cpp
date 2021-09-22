@@ -63,6 +63,13 @@ void CreateMat_u()
 	}
 
 }
+
+//===============Vectors=================
+	double* vectorY = new double[10];
+	double* vectorU = new double[10];
+
+
+
 double dy_dx1(double x1,double x2,double t)
 {
 	step1 = cos((pi * x1) / X1) * (cos((pi * x2) / X2) - 1);
@@ -249,6 +256,7 @@ void addY(double x1,double x2,double t,int exp,int j1)
 
 
 		 matrixY[exp][j1] = equationsY(t, x1, x2); 
+		 
 
 }
 
@@ -258,6 +266,7 @@ void addU(double x1, double x2, double t,int exp, int j2)
 	
 
 	matrixU[exp][j2] = equationsL(t, x1, x2);
+	
 }
 
 void mult(double** x, double n, double m, double** y, double** res)
@@ -294,7 +303,6 @@ void giveMat(double** matC,double** matG)
 
 // Matrix multiplication
 
-
 //exp - expiriment
 void start(int l,int m,int exp)
 {
@@ -316,6 +324,7 @@ void Create()
 	CreateMat_copy();
 	CreateMat_u();
 
+	
 	matrix_ziro(matrixY);
 	matrix_ziro(matrixU);
 	matrix_ziro(matrix1_res);
