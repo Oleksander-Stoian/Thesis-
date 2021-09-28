@@ -37,7 +37,7 @@ void winform::MyForm2::ShowC(int N_u, int N_y, double** matrixC,double** matrixG
    //dataGridView1 MATRIX_C 1
     dataGridView1->RowCount = N_u;
     dataGridView1->ColumnCount = N_y;
-    for (int i = 0; i < N_u; i++)
+    for (int i = 0; i <N_u; i++)
     {
         for (int j = 0; j < N_y; j++)
         {

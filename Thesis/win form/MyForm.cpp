@@ -1,5 +1,5 @@
 #include "MyForm1.h"
-
+#include "foo.h"
 using namespace System;
 using namespace System::Windows::Forms;
 
@@ -10,4 +10,5 @@ void main(array<String^>^ args)
 	Application::SetCompatibleTextRenderingDefault(false);
 	winform::MyForm1 form;
 	Application::Run(% form);
+	
 }
